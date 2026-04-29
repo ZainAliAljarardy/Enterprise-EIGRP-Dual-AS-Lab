@@ -3,33 +3,43 @@
 ## 📌 Project Overview
 This project demonstrates a complex enterprise network architecture using **Cisco EIGRP**. The lab features a dual Autonomous System (AS) design, focusing on high availability, traffic engineering, and route propagation between different routing domains.
 
-
+![Network Topology](topology.png)
 
 ## 🛠️ Network Architecture & Features
 - **Dual Autonomous Systems:** Split into `AS 1` and `AS 2` to simulate separate corporate departments or geographical locations.
 - **Mutual Redistribution:** Configured on **R5** and **R6** (ASBRs) to ensure full reachability between both domains.
-- **Redundancy & High Availability:** Dual boundary routers (R5/R6) and multiple paths between distribution layers to prevent single points of failure.
-- Deterministic Traffic Steering: Configured R6 as the Primary ASBR and R5 as the Redundant (Backup) path by manipulating EIGRP vector metrics (bandwidth/delay),    demonstrating advanced path selection control.
-- **Traffic Engineering:** Manual metric manipulation using `Bandwidth` and `Delay` to influence EIGRP Successor and Feasible Successor selection.
+- **High Availability & Deterministic Traffic Steering:** - **R6 (Primary):** Configured as the **Successor Path** for inter-AS traffic.
+    - **R5 (Secondary):** Configured as the **Feasible Successor Path** (Backup).
+- **Traffic Engineering:** Manual manipulation of EIGRP vector metrics (`Bandwidth` and `Delay`) to achieve a predictable traffic flow.
 - **Infrastructure Services:** Integrated **DHCP Pools** for end-user networks (Net50, Net60, Net70, Net80).
-- **Security Best Practices:** Use of `passive-interface` on LAN-facing interfaces to optimize performance and security.
+- **Security Best Practices:** Implementation of `passive-interface` on LAN-facing interfaces.
 
-## 📂 Repository Structure
-- **/configs:** Contains the running configurations for all 10 routers (`R1.cfg` to `R10.cfg`).
-- **topology.png:** High-resolution diagram of the network lab.
+## 🧪 Verification & Failover Testing
+The following tests demonstrate the robustness of the design and the efficiency of EIGRP in handling path redundancy.
+
+### 1. Primary Path Analysis (R6 - Successor)
+Under normal conditions, traffic from **PC2** (AS 1) to **PC3** (AS 2) follows the optimized path through **R6**.
+- **Trace Path:** PC2 -> R1 -> R3 -> **R6 (12.12.12.2)** -> R7 -> R8 -> PC3.
+
+![Primary Path Trace](Screenshot%202026-04-29%20203727.png)
+
+### 2. Redundancy & Failover Test (R5 - Feasible Successor)
+When the primary link (R6) is disabled, EIGRP immediately switches to the backup path through **R5** without manual intervention.
+- **Failover Path:** PC2 -> R1 -> R3 -> **R5 (11.11.11.2)** -> R7 -> R8 -> PC3.
+
+![Failover Path Trace](Screenshot%202026-04-29%20203813.png)
 
 ## 🚀 Key Technologies Used
 - Cisco IOS (EIGRP Routing)
-- Route Redistribution
+- Mutual Route Redistribution
+- Successor & Feasible Successor Selection
 - DHCP (Dynamic Host Configuration Protocol)
-- Metric Weights & Vector Metrics
-- HSRP/VRRP (Conceptualized in the 3-Tier design)
+- Metric Manipulation (K-Values & Vector Metrics)
 
-## 📝 How to Use
-1. Clone the repository.
-2. Load the `.cfg` files into your terminal or network simulator (GNS3/CML/EVE-NG).
-3. Verify adjacency using `show ip eigrp neighbors`.
-4. Test end-to-end connectivity using `ping` and `traceroute`.
+## 📂 Repository Structure
+- **/configs:** Running configurations for all 10 routers (`R1.cfg` to `R10.cfg`).
+- **topology.png:** High-resolution diagram of the network lab.
+- **Screenshots:** Verification of ping and traceroute tests.
 
 ---
-**Designed by: [ضع اسمك هنا]** *IT Professional | Network Engineering Enthusiast*
+**Designed by: Zain Ali Al-Jarardy** *Network Engineer | IT Professional*
