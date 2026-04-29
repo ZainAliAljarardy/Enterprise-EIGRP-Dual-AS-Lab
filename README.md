@@ -9,6 +9,7 @@ This project demonstrates a complex enterprise network architecture using **Cisc
 - **Dual Autonomous Systems:** Split into `AS 1` and `AS 2` to simulate separate corporate departments or geographical locations.
 - **Mutual Redistribution:** Configured on **R5** and **R6** (ASBRs) to ensure full reachability between both domains.
 - **Redundancy & High Availability:** Dual boundary routers (R5/R6) and multiple paths between distribution layers to prevent single points of failure.
+- Deterministic Traffic Steering: Configured R6 as the Primary ASBR and R5 as the Redundant (Backup) path by manipulating EIGRP vector metrics (bandwidth/delay),    demonstrating advanced path selection control.
 - **Traffic Engineering:** Manual metric manipulation using `Bandwidth` and `Delay` to influence EIGRP Successor and Feasible Successor selection.
 - **Infrastructure Services:** Integrated **DHCP Pools** for end-user networks (Net50, Net60, Net70, Net80).
 - **Security Best Practices:** Use of `passive-interface` on LAN-facing interfaces to optimize performance and security.
