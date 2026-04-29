@@ -21,13 +21,13 @@ The following tests demonstrate the robustness of the design and the efficiency 
 Under normal conditions, traffic from **PC2** (AS 1) to **PC3** (AS 2) follows the optimized path through **R6**.
 - **Trace Path:** PC2 -> R1 -> R3 -> **R6 (12.12.12.2)** -> R7 -> R8 -> PC3.
 
-![Primary Path Trace](Primary Path Trace.png)
+![Primary Path Trace](PrimaryPathTrace.png)
 
 ### 2. Redundancy & Failover Test (R5 - Feasible Successor)
 When the primary link (R6) is disabled, EIGRP immediately switches to the backup path through **R5** without manual intervention.
 - **Failover Path:** PC2 -> R1 -> R3 -> **R5 (11.11.11.2)** -> R7 -> R8 -> PC3.
 
-![Failover Path Trace](Feasible Successors Path..png)
+![Failover Path Trace](FeasibleSuccessorsPath.png)
 
 ## 🚀 Key Technologies Used
 - Cisco IOS (EIGRP Routing)
